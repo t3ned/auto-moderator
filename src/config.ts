@@ -1,6 +1,11 @@
 import { MissingEnvVariableError } from "#lib";
 
-export const requiredEnvVariables = ["URI_DISCORD", "URI_POSTGRESQL", "URI_REDIS"];
+export const requiredEnvVariables = [
+  "URI_DISCORD",
+  "URI_POSTGRESQL",
+  "URI_REDIS",
+  "PREFIX"
+];
 
 // Ensure required env variables have loaded
 for (const rev of requiredEnvVariables) {
@@ -17,6 +22,7 @@ declare global {
       URI_DISCORD: string;
       URI_POSTGRESQL: string;
       URI_REDIS: string;
+      PREFIX: string;
     }
   }
 }
@@ -29,3 +35,5 @@ export const uri = {
   postgresql: process.env.URI_POSTGRESQL,
   redis: process.env.URI_REDIS
 };
+
+export const prefix = process.env.PREFIX;
