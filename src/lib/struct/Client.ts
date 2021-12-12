@@ -1,9 +1,16 @@
 import { AkairoClient, ListenerHandler, CommandHandler } from "discord-akairo";
+import { MonitorHandler, config } from "#lib";
 import type { ClientOptions } from "discord.js";
-import { config } from "#lib";
 import { join } from "path";
 
 export class Client extends AkairoClient {
+  /**
+   * The monitor handler
+   */
+  public monitorHandler = new MonitorHandler(this, {
+    directory: join(process.cwd(), "dist", "monitors")
+  });
+
   /**
    * The listener handler
    */
@@ -36,5 +43,6 @@ export class Client extends AkairoClient {
 
     this.commandHandler.loadAll();
     this.listenerHandler.loadAll();
+    this.monitorHandler.loadAll();
   }
 }
