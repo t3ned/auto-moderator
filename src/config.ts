@@ -1,6 +1,6 @@
 import { MissingEnvVariableError } from "#lib";
 
-export const requiredEnvVariables = ["URI_DISCORD"];
+export const requiredEnvVariables = ["URI_DISCORD", "URI_POSTGRESQL", "URI_REDIS"];
 
 // Ensure required env variables have loaded
 for (const rev of requiredEnvVariables) {
@@ -15,6 +15,8 @@ declare global {
     export interface ProcessEnv {
       NODE_ENV?: "prod" | "dev";
       URI_DISCORD: string;
+      URI_POSTGRESQL: string;
+      URI_REDIS: string;
     }
   }
 }
