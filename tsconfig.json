@@ -9,6 +9,7 @@
     /* Compiling */
     "allowJs": true,
     "inlineSourceMap": false,
+    "baseUrl": "./src",
     "rootDir": "./src",
     "outDir": "./dist",
 
@@ -34,7 +35,11 @@
 
     /* Module Resolution */
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "paths": {
+      "#lib": ["lib/index.ts"]
+    }
   },
   "include": ["./src/**/*"],
   "exclude": ["./node_modules"]
