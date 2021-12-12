@@ -1,4 +1,4 @@
-import { redisLogger, config } from "#lib";
+import { RedisHelpers, redisLogger, config } from "#lib";
 import IORedis from "ioredis";
 
 export class RedisProvider {
@@ -6,6 +6,11 @@ export class RedisProvider {
    * The IORedis instance
    */
   public client: IORedis.Redis;
+
+  /**
+   * The redis helpers
+   */
+  public helpers = new RedisHelpers(this);
 
   public constructor() {
     this.client = new IORedis(config.uri.redis);
