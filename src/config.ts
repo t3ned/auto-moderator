@@ -25,5 +25,7 @@ export const isProd = process.env.NODE_ENV === "prod";
 export const isDev = process.env.NODE_ENV === "dev" || !isProd;
 
 export const uri = {
-  discord: process.env.URI_DISCORD
+  discord: process.env.URI_DISCORD,
+  postgresql: process.env.URI_POSTGRESQL,
+  redis: process.env.URI_REDIS
 };
