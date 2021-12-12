@@ -1,0 +1,7 @@
+version: "3"
+services:
+  AutoModerator:
+    container_name: auto-moderator
+    image: auto-moderator
+    network_mode: "host"
+    restart: "always"

@@ -1,0 +1,21 @@
+# Dev
+.idea/
+.vscode/
+.git/
+dist/
+
+# Logs
+.log
+logs/
+*.log
+
+# Node
+node_modules/
+
+# Project
+.env.example
+.gitattributes
+.gitignore
+docker-compose.yml
+Dockerfile
+LICENSE
