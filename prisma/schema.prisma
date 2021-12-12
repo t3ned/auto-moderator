@@ -43,6 +43,7 @@ model Modlog {
   guildId String @db.VarChar(20)
   guild   Guild  @relation(fields: [guildId], references: [id])
 
+  @@unique([guildId, caseId], name: "modlogId")
   @@map("modlogs")
 }
 
