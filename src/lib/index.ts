@@ -11,5 +11,9 @@ export * from "./providers/helpers/RedisHelpers";
 export * from "./providers/DatabaseProvider";
 export * from "./providers/RedisProvider";
 
+// Struct
+export * from "./struct/Embed";
+export * from "./struct/SequentialQueue";
+
 // Utils
 export * from "./utils/loggers";
