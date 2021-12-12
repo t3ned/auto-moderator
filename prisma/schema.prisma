@@ -1,0 +1,13 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "./erd.svg"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("URI_POSTGRESQL")
+}
