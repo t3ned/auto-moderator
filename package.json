@@ -11,6 +11,7 @@
     "build": "npx tsc -b ."
   },
   "dependencies": {
+    "@nedbot/logger": "^2.0.2",
     "@prisma/client": "^3.6.0",
     "discord-akairo": "^8.1.0",
     "discord.js": "^13.3.1",
