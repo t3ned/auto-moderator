@@ -5,6 +5,7 @@ export * from "./errors/MissingEnvVariableError";
 export * as config from "../config";
 
 // Providers
+export * from "./providers/helpers/DatabaseHelpers";
 export * from "./providers/DatabaseProvider";
 export * from "./providers/RedisProvider";
 

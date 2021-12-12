@@ -1,11 +1,16 @@
-import { databaseLogger, config } from "#lib";
+import { DatabaseHelpers, databaseLogger, config } from "#lib";
 import { PrismaClient } from "@prisma/client";
 
 export class DatabaseProvider {
   /**
-   * The PrismaClient instance.
+   * The PrismaClient instance
    */
   public client: PrismaClient;
+
+  /**
+   * The database helpers
+   */
+  public helpers = new DatabaseHelpers(this);
 
   public constructor() {
     const client = new PrismaClient({
