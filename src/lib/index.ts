@@ -6,6 +6,7 @@ export * as config from "../config";
 
 // Providers
 export * from "./providers/DatabaseProvider";
+export * from "./providers/RedisProvider";
 
 // Utils
 export * from "./utils/loggers";
