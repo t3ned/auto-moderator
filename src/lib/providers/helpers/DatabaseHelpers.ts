@@ -98,11 +98,10 @@ export class DatabaseHelpers {
    * Increments the guild modlog case id
    * @param guildId The id of the guild
    */
-  public async incrementGuildModlogCaseId(guildId: string): Promise<number> {
+  public async incrementGuildModlogCaseId(guildId: string): Promise<Guild> {
     const guild = await this.ensureGuild(guildId);
     const modlogCaseId = guild.modlogCaseId + 1;
-    await this.updateGuild(guildId, { modlogCaseId });
-    return modlogCaseId;
+    return this.updateGuild(guildId, { modlogCaseId });
   }
 
   /**
@@ -175,15 +174,12 @@ export class DatabaseHelpers {
     data: Prisma.ModlogCreateInput,
     duration?: number
   ): Promise<ModlogWithTask> {
-    const modlogCaseId = await this.incrementGuildModlogCaseId(guildId);
-
     const modlog = await this.client.modlog.create({
       include: {
         task: true
       },
       data: {
         ...data,
-        caseId: modlogCaseId,
         guild: {
           connect: {
             id: guildId
