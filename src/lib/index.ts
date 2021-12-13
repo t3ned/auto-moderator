@@ -17,6 +17,8 @@ export * from "./struct/monitor/MonitorHandler";
 export * from "./struct/Client";
 export * from "./struct/Embed";
 export * from "./struct/SequentialQueue";
+export * from "./struct/moderator/Modlog";
+export * from "./struct/moderator/ModeratorActions";
 
 // Utils
 export * from "./utils/loggers";
