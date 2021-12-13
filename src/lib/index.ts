@@ -20,3 +20,4 @@ export * from "./struct/SequentialQueue";
 
 // Utils
 export * from "./utils/loggers";
+export * from "./utils/util";
