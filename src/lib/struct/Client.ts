@@ -24,7 +24,7 @@ export class Client extends AkairoClient {
   public commandHandler = new CommandHandler(this, {
     directory: join(process.cwd(), "dist", "commands"),
     prefix: config.prefix,
-    commandUtil: true,
+    commandUtil: false,
     allowMention: true
   });
 
@@ -44,5 +44,9 @@ export class Client extends AkairoClient {
     this.commandHandler.loadAll();
     this.listenerHandler.loadAll();
     this.monitorHandler.loadAll();
+  }
+
+  public setInterval(): void {
+    void 0;
   }
 }
