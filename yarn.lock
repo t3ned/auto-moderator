@@ -1472,6 +1472,11 @@ https-proxy-agent@5.0.0:
     agent-base "6"
     debug "4"
 
+human-ms@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/human-ms/-/human-ms-0.0.2.tgz#21afdb6e8c9cffed03d77840012cb2b29fa8755e"
+  integrity sha512-Hne5pvv6rOO26apmJS0BbvgathGapAHBnZBXjNYOzefeZAzrwqzrT+qCXvX72rjpQP0irSvYtueh2S5ovbO13g==
+
 iconv-lite@0.4:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
