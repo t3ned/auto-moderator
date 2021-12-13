@@ -51,3 +51,16 @@ export function monitor<T extends MonitorOptions>(id: string, options: T) {
     };
   });
 }
+
+/**
+ * Capitalizes the first letter of a string
+ */
+String.prototype.capitalize = function () {
+  return this[0].toLocaleUpperCase() + this.slice(1).toLocaleLowerCase();
+};
+
+declare global {
+  export interface String {
+    capitalize(): string;
+  }
+}
