@@ -7,11 +7,7 @@ export class ModerationUtils extends ModerationBase {
    * @param userId The id of the user
    */
   public async fetchUser(userId: string): Promise<User | null> {
-    try {
-      return this.client.users.fetch(userId);
-    } catch {
-      return null;
-    }
+    return this.client.users.fetch(userId).catch(() => null);
   }
 
   /**
@@ -20,14 +16,9 @@ export class ModerationUtils extends ModerationBase {
    * @param content The message content
    */
   public async tryDm(userId: string, content: MessageOptions): Promise<Message | null> {
-    try {
-      const user = await this.fetchUser(userId);
-      if (!user) return null;
-
-      return user.send(content);
-    } catch {
-      return null;
-    }
+    const user = await this.fetchUser(userId).catch(() => null);
+    if (!user) return null;
+    return user.send(content).catch(() => null);
   }
 
   /**
