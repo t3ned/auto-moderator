@@ -1,4 +1,12 @@
-import type { Guild, User, GuildMember, Message, MessageOptions } from "discord.js";
+import type {
+  Guild,
+  User,
+  GuildBan,
+  GuildMember,
+  Message,
+  MessageOptions
+} from "discord.js";
+
 import { ModerationBase, ModlogReason, ModlogReasons } from "#lib";
 
 export class ModerationUtils extends ModerationBase {
@@ -17,6 +25,15 @@ export class ModerationUtils extends ModerationBase {
    */
   public fetchMember(guild: Guild, userId: string): Promise<GuildMember | null> {
     return guild.members.fetch(userId).catch(() => null);
+  }
+
+  /**
+   * Fetches a user's ban
+   * @param guild The guild
+   * @param userId The id of the user
+   */
+  public fetchBan(guild: Guild, userId: string): Promise<GuildBan | null> {
+    return guild.bans.fetch(userId).catch(() => null);
   }
 
   /**
