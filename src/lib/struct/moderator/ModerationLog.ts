@@ -90,13 +90,17 @@ export class ModerationLog extends ModerationBase {
       }
     }
 
-    const modlog = await databaseProvider.helpers.createModlog(this.guild.id, {
-      ...this.data,
-      moderatorId: this.moderator.id,
-      offenderId: this.offender.id,
-      messageId,
-      caseId
-    });
+    const modlog = await databaseProvider.helpers.createModlog(
+      this.guild.id,
+      {
+        ...this.data,
+        moderatorId: this.moderator.id,
+        offenderId: this.offender.id,
+        messageId,
+        caseId
+      },
+      this.duration
+    );
 
     return modlog;
   }
