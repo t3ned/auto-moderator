@@ -20,6 +20,8 @@ export * from "./struct/SequentialQueue";
 export * from "./struct/moderator/Modlog";
 export * from "./struct/moderator/ModeratorActions";
 export * from "./struct/moderator/types";
+export * from "./struct/moderator/ModerationManager";
+export * from "./struct/moderator/ModerationUtils";
 
 // Utils
 export * from "./utils/loggers";
