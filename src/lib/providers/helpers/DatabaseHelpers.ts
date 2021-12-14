@@ -111,7 +111,7 @@ export class DatabaseHelpers {
   }
 
   /**
-   * Finds a guild by id
+   * Finds a modlog by id
    * @param guildId The id of the guild
    * @param caseId The id of the modlog case
    */
@@ -125,6 +125,21 @@ export class DatabaseHelpers {
           guildId,
           caseId
         }
+      }
+    });
+  }
+
+  /**
+   * Finds a modlog by message id
+   * @param messageId The id of the message
+   */
+  public findModlogByMessageId(messageId: string): Promise<ModlogWithTask | null> {
+    return this.client.modlog.findFirst({
+      include: {
+        task: true
+      },
+      where: {
+        messageId
       }
     });
   }
