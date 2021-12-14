@@ -1,5 +1,5 @@
 import { AkairoClient, ListenerHandler, CommandHandler } from "discord-akairo";
-import { MonitorHandler, config } from "#lib";
+import { ModerationManager, MonitorHandler, config } from "#lib";
 import type { ClientOptions } from "discord.js";
 import { join } from "path";
 
@@ -27,6 +27,11 @@ export class Client extends AkairoClient {
     commandUtil: false,
     allowMention: true
   });
+
+  /**
+   * The moderation manager
+   */
+  public mod = new ModerationManager(this);
 
   /**
    * @param options The client options
