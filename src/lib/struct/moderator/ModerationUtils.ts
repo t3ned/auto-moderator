@@ -1,4 +1,4 @@
-import type { User, Message, MessageOptions } from "discord.js";
+import type { Guild, User, GuildMember, Message, MessageOptions } from "discord.js";
 import { ModerationBase, ModlogReason, ModlogReasons } from "#lib";
 
 export class ModerationUtils extends ModerationBase {
@@ -6,8 +6,17 @@ export class ModerationUtils extends ModerationBase {
    * Fetches a user
    * @param userId The id of the user
    */
-  public async fetchUser(userId: string): Promise<User | null> {
+  public fetchUser(userId: string): Promise<User | null> {
     return this.client.users.fetch(userId).catch(() => null);
+  }
+
+  /**
+   * Fetches a member
+   * @param guild The guild
+   * @param userId The id of the user
+   */
+  public fetchMember(guild: Guild, userId: string): Promise<GuildMember | null> {
+    return guild.members.fetch(userId).catch(() => null);
   }
 
   /**
