@@ -1,6 +1,6 @@
 import type { Client } from "#lib";
 
-export class ModeratorActions {
+export class ModerationActions {
   /**
    * The client instance
    */

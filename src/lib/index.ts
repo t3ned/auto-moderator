@@ -18,7 +18,7 @@ export * from "./struct/Client";
 export * from "./struct/Embed";
 export * from "./struct/SequentialQueue";
 export * from "./struct/moderator/Modlog";
-export * from "./struct/moderator/ModeratorActions";
+export * from "./struct/moderator/ModerationActions";
 export * from "./struct/moderator/types";
 export * from "./struct/moderator/ModerationManager";
 export * from "./struct/moderator/ModerationUtils";
