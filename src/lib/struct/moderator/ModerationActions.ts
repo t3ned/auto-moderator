@@ -6,8 +6,9 @@ import {
   dangerEmbed
 } from "#lib";
 
-import type { GuildMember, User } from "discord.js";
+import type { Guild, User, GuildMember } from "discord.js";
 import { ModlogCaseType } from "@prisma/client";
+import { parseMS } from "human-ms";
 
 export class ModerationActions extends ModerationBase {
   /**
@@ -56,6 +57,48 @@ export class ModerationActions extends ModerationBase {
 
   // public mute() {}
   // public unmute() {}
-  // public ban() {}
+
+  /**
+   * Bans a user
+   * @param guild The guild
+   * @param user The offending user
+   * @param moderator The responsible moderator
+   * @param reason The reason for this ban
+   * @param days The number of message days to delete
+   * @param duration The duration of this ban
+   */
+  public async ban(
+    guild: Guild,
+    user: User,
+    moderator: User,
+    reason: ModlogReason,
+    days: number,
+    duration?: number
+  ): Promise<ModlogWithTask> {
+    const member = await this.manager.utils.fetchMember(guild, user.id);
+    if (!member?.bannable) throw new Error("Member is not bannable");
+
+    await this.manager.utils.tryDm(user.id, {
+      embeds: [
+        dangerEmbed(this.manager.utils.getReasonString(reason)).setAuthor(
+          `Banned ${duration ? `for ${parseMS(duration)}` : ""}`
+        )
+      ]
+    });
+
+    await guild.members.ban(user, { days });
+
+    return new ModerationLog(
+      guild,
+      moderator,
+      user,
+      {
+        caseType: ModlogCaseType.BAN,
+        reason: reason
+      },
+      duration
+    ).new();
+  }
+
   // public unban() {}
 }
