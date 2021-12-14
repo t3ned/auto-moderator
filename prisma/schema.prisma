@@ -35,8 +35,8 @@ model Modlog {
   moderatorId String  @map("moderator_id") @db.VarChar(20)
   messageId   String? @map("message_id") @db.VarChar(20)
 
-  createdAt DateTime @map("created_at") @db.Timestamp
-  updatedAt DateTime @map("updated_at") @db.Timestamp
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamp
 
   task ModerationTask?
 
