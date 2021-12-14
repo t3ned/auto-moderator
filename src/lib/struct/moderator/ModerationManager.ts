@@ -1,4 +1,10 @@
-import { ModerationActions, ModerationUtils, Client } from "#lib";
+import {
+  ModerationActions,
+  ModerationScheduler,
+  ModerationHistory,
+  ModerationUtils,
+  Client
+} from "#lib";
 
 export class ModerationManager {
   /**
@@ -10,6 +16,16 @@ export class ModerationManager {
    * The moderation actions
    */
   public actions = new ModerationActions(this);
+
+  /**
+   * The moderation scheduler
+   */
+  public scheduler = new ModerationScheduler(this);
+
+  /**
+   * The moderation history
+   */
+  public history = new ModerationHistory(this);
 
   /**
    * The moderation utils
