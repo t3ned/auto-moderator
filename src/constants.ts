@@ -20,3 +20,5 @@ export const clientOptions: ClientOptions = {
     .add("GUILD_BANS")
     .add("GUILD_MESSAGES")
 };
+
+export const moderationSchedulerPrecision = 1000 * 5;
