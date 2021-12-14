@@ -9,8 +9,7 @@ import {
   formatEmbedFieldDescription,
   databaseProvider,
   dangerEmbed,
-  Client,
-  consts
+  Client
 } from "#lib";
 
 import type { Guild, TextChannel } from "discord.js";
@@ -59,7 +58,7 @@ export class ModerationLog extends ModerationBase {
     const content = formatEmbedFieldDescription([
       ["Moderator", formatUser(this.moderator)],
       ["Offender", formatUser(this.offender)],
-      ["Reason", consts.modlogReasons[this.data.reason]],
+      ["Reason", this.manager.utils.getReasonString(this.data.reason)],
       ["Duration", this.duration ? parseMS(this.duration) : ""]
     ]);
 

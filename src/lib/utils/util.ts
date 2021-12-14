@@ -1,6 +1,6 @@
 import type { Listener, ListenerOptions, Command, CommandOptions } from "discord-akairo";
 import type { Monitor, MonitorOptions, ModlogUser } from "#lib";
-import type { Client, Constructable } from "discord.js";
+import { Client, Constructable, Util } from "discord.js";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function createClassDecorator(fn: Function) {
@@ -66,7 +66,7 @@ export const fetchUser = (client: Client, userId: string) => {
  * @param user The modlog user
  */
 export const formatUser = (user: ModlogUser) => {
-  return `${user.tag} (${user.id})`;
+  return `${Util.escapeMarkdown(user.tag)} (${user.id})`;
 };
 
 /**
