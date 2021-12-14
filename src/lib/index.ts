@@ -12,9 +12,9 @@ export * from "./providers/DatabaseProvider";
 export * from "./providers/RedisProvider";
 
 // Struct
-export * from "./struct/moderator/ModerationLog";
 export * from "./struct/moderator/ModerationManager";
 export * from "./struct/moderator/ModerationBase";
+export * from "./struct/moderator/ModerationLog";
 export * from "./struct/moderator/ModerationActions";
 export * from "./struct/moderator/ModerationUtils";
 export * from "./struct/moderator/ModerationTypes";

@@ -3,18 +3,20 @@ import {
   ModlogUser,
   ModlogData,
   ModlogWithTask,
+  ModerationBase,
   fetchUser,
   formatUser,
   formatEmbedFieldDescription,
   databaseProvider,
   dangerEmbed,
+  Client,
   consts
 } from "#lib";
 
 import type { Guild, TextChannel } from "discord.js";
 import { parseMS } from "human-ms";
 
-export class ModerationLog {
+export class ModerationLog extends ModerationBase {
   /**
    * @param guild The guild
    * @param moderator The modlog moderator
@@ -28,7 +30,9 @@ export class ModerationLog {
     public offender: ModlogUser,
     public data: ModlogData,
     public duration?: number
-  ) {}
+  ) {
+    super((guild.client as Client).mod);
+  }
 
   /**
    * Creates a new modlog from a modlog database entry
