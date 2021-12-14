@@ -2,6 +2,7 @@ import {
   Embed,
   fetchUser,
   formatUser,
+  formatEmbedFieldDescription,
   databaseProvider,
   dangerEmbed,
   consts
@@ -29,15 +30,12 @@ export class Modlog {
   ) {}
 
   public toEmbed(caseId: number): Embed {
-    const content = [
+    const content = formatEmbedFieldDescription([
       ["Moderator", formatUser(this.moderator)],
       ["Offender", formatUser(this.offender)],
       ["Reason", consts.modlogReasons[this.data.reason]],
-      this.duration ? ["Duration", parseMS(this.duration)] : []
-    ]
-      .filter((x) => x !== null)
-      .map(([key, value]) => `**❯ ${key}:** ${value}`)
-      .join("\n");
+      ["Duration", this.duration ? parseMS(this.duration) : ""]
+    ]);
 
     const title = `[Automod: ${caseId}] ${this.data.caseType.toLowerCase().capitalize()}`;
 

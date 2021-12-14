@@ -70,6 +70,17 @@ export const formatUser = (user: ModlogUser) => {
 };
 
 /**
+ * Formats a 2D array into a string
+ * @param fields The fields to format
+ */
+export const formatEmbedFieldDescription = (fields: string[][]): string => {
+  return fields
+    .filter((field) => field[0] && field[1])
+    .map(([name, value]) => `**❯ ${name}:** ${value}`)
+    .join("\n");
+};
+
+/**
  * Capitalizes the first letter of a string
  */
 String.prototype.capitalize = function () {
