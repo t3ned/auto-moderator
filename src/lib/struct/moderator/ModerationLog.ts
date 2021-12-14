@@ -7,12 +7,13 @@ import {
   fetchUser,
   formatUser,
   formatEmbedFieldDescription,
+  reversedModlogActionMap,
   databaseProvider,
   dangerEmbed,
   Client
 } from "#lib";
 
-import type { Guild, TextChannel } from "discord.js";
+import { Guild, TextChannel, MessageActionRow, MessageButton } from "discord.js";
 import { parseMS } from "human-ms";
 
 export class ModerationLog extends ModerationBase {
@@ -81,9 +82,11 @@ export class ModerationLog extends ModerationBase {
     if (guild.modlogChannelId) {
       const channel = this.guild.channels.cache.get(guild.modlogChannelId) as TextChannel;
       if (channel) {
-        // TODO: message components for opposite action
         const message = await channel
-          .send({ embeds: [this.toEmbed(caseId)] })
+          .send({
+            embeds: [this.toEmbed(caseId)],
+            components: this.messageComponents ? [this.messageComponents] : []
+          })
           .catch(() => null);
 
         if (message) messageId = message.id;
@@ -103,5 +106,20 @@ export class ModerationLog extends ModerationBase {
     );
 
     return modlog;
+  }
+
+  /**
+   * Gets the message components to use in the modlog message
+   */
+  public get messageComponents(): MessageActionRow | null {
+    const reverseAction = reversedModlogActionMap[this.data.caseType];
+    if (!reverseAction) return null;
+
+    return new MessageActionRow().addComponents(
+      new MessageButton()
+        .setCustomId("reverse-action")
+        .setStyle("SUCCESS")
+        .setLabel(`↻ ${reverseAction.toLowerCase().capitalize()}`)
+    );
   }
 }
