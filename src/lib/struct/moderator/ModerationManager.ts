@@ -1,11 +1,15 @@
-import type { Client } from "discord.js";
-import { ModerationUtils } from "#lib";
+import { ModerationActions, ModerationUtils, Client } from "#lib";
 
 export class ModerationManager {
   /**
    * The client instance
    */
   public client!: Client;
+
+  /**
+   * The moderation actions
+   */
+  public actions = new ModerationActions(this);
 
   /**
    * The moderation utils

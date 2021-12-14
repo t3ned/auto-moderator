@@ -1,16 +1,16 @@
-import type { Client } from "#lib";
+import type { ModerationManager } from "#lib";
 
 export class ModerationActions {
   /**
-   * The client instance
+   * The manager instance
    */
-  public client!: Client;
+  public manager!: ModerationManager;
 
   /**
-   * @param client The client instance
+   * @param manager The manager instance
    */
-  public constructor(client: Client) {
-    Reflect.defineProperty(this, "client", { value: client });
+  public constructor(manager: ModerationManager) {
+    Reflect.defineProperty(this, "manager", { value: manager });
   }
 
   // public warn() {}
