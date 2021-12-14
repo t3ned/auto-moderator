@@ -1,5 +1,11 @@
-import type { Guild, ModerationTask, Modlog, Prisma } from "@prisma/client";
-import type { DatabaseProvider } from "#lib";
+import type {
+  DatabaseProvider,
+  GuildWithModlogs,
+  ModlogWithTask,
+  ModlogCreateInputWithoutGuild
+} from "#lib";
+
+import type { Guild, ModerationTask, Prisma } from "@prisma/client";
 
 export class DatabaseHelpers {
   /**
@@ -171,7 +177,7 @@ export class DatabaseHelpers {
    */
   public async createModlog(
     guildId: string,
-    data: Prisma.ModlogCreateInput,
+    data: ModlogCreateInputWithoutGuild,
     duration?: number
   ): Promise<ModlogWithTask> {
     const modlog = await this.client.modlog.create({
@@ -230,6 +236,3 @@ export class DatabaseHelpers {
     });
   }
 }
-
-export type GuildWithModlogs = Guild & { modlogs: Modlog[] };
-export type ModlogWithTask = Modlog & { task: ModerationTask | null };
