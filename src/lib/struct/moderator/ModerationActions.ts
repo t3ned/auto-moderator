@@ -100,5 +100,27 @@ export class ModerationActions extends ModerationBase {
     ).new();
   }
 
-  // public unban() {}
+  /**
+   * Unbans a user
+   * @param guild The guild
+   * @param userId The offending user id
+   * @param moderator The responsible moderator
+   * @param reason The reason for this unban
+   */
+  public async unban(
+    guild: Guild,
+    userId: string,
+    moderator: User,
+    reason: ModlogReason
+  ): Promise<ModlogWithTask> {
+    const ban = await this.manager.utils.fetchBan(guild, userId);
+    if (!ban) throw "User is not banned";
+
+    await guild.members.unban(userId);
+
+    return new ModerationLog(guild, moderator, ban.user, {
+      caseType: ModlogCaseType.UNBAN,
+      reason: reason
+    }).new();
+  }
 }
