@@ -6,12 +6,14 @@ export interface ModlogUser {
 }
 
 export enum ModlogReason {
+  REVERSE,
   SPAM
 }
 
-export const ModlogReasons = new Map<ModlogReason, string>([
-  [ModlogReason.SPAM, "Spam is not allowed anywhere in this server."]
-]);
+export const ModlogReasons: Record<ModlogReason, string> = {
+  [ModlogReason.REVERSE]: "Action was reversed via button.",
+  [ModlogReason.SPAM]: "Spam is not allowed anywhere in this server."
+};
 
 export const reversedModlogActionMap: Record<ModlogCaseType, ModlogCaseType | null> = {
   [ModlogCaseType.WARN]: null,

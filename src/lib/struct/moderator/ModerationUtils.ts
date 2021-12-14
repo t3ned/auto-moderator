@@ -52,8 +52,6 @@ export class ModerationUtils extends ModerationBase {
    * @param reason The modlog reason integer
    */
   public getReasonString(reason: ModlogReason): string {
-    const reasonString = ModlogReasons.get(reason);
-    if (reasonString) return reasonString;
-    throw new Error("Missing modlog reason");
+    return ModlogReasons[reason];
   }
 }
