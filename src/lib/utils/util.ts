@@ -1,6 +1,6 @@
 import type { Listener, ListenerOptions, Command, CommandOptions } from "discord-akairo";
-import type { Monitor, MonitorOptions } from "#lib";
-import type { Constructable } from "discord.js";
+import type { Monitor, MonitorOptions, ModlogUser } from "#lib";
+import type { Client, Constructable } from "discord.js";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export function createClassDecorator(fn: Function) {
@@ -51,6 +51,23 @@ export function monitor<T extends MonitorOptions>(id: string, options: T) {
     };
   });
 }
+
+/**
+ * Fetches a user, catching errors
+ * @param client The client instance
+ * @param userId The id of the user
+ */
+export const fetchUser = (client: Client, userId: string) => {
+  return client.users.fetch(userId).catch(() => null);
+};
+
+/**
+ * Formats a user: username#discrim (id)
+ * @param user The modlog user
+ */
+export const formatUser = (user: ModlogUser) => {
+  return `${user.tag} (${user.id})`;
+};
 
 /**
  * Capitalizes the first letter of a string

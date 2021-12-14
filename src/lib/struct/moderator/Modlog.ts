@@ -1,9 +1,16 @@
-import type { Prisma } from "@prisma/client";
-import type { Guild, TextChannel, User } from "discord.js";
-import { Embed, databaseProvider, dangerEmbed, consts } from "#lib";
-import { parseMS } from "human-ms";
+import {
+  Embed,
+  fetchUser,
+  formatUser,
+  databaseProvider,
+  dangerEmbed,
+  consts
+} from "#lib";
 
-const formatUser = (user: User) => `${user.tag} (${user.id})`;
+import type { Modlog as PrismaModlog } from "@prisma/client";
+import type { ModlogUser, ModlogData } from "./types";
+import type { Guild, TextChannel } from "discord.js";
+import { parseMS } from "human-ms";
 
 export class Modlog {
   /**
@@ -15,8 +22,8 @@ export class Modlog {
    */
   public constructor(
     public guild: Guild,
-    public moderator: User,
-    public offender: User,
+    public moderator: ModlogUser,
+    public offender: ModlogUser,
     public data: ModlogData,
     public duration?: number
   ) {}
@@ -58,16 +65,22 @@ export class Modlog {
     }
 
     const modlog = await databaseProvider.helpers.createModlog(this.guild.id, {
+      ...this.data,
       moderatorId: this.moderator.id,
       offenderId: this.offender.id,
       messageId,
-      caseId,
-      ...this.data
+      caseId
     });
 
     return modlog;
   }
-}
 
-// eslint-disable-next-line prettier/prettier
-export type ModlogData = Omit<Prisma.ModlogCreateInput, "moderatorId" | "offenderId" | "caseId">;
+  public static async from(guild: Guild, data: PrismaModlog): Promise<Modlog | null> {
+    const moderator = await fetchUser(guild.client, data.moderatorId);
+    const offender = await fetchUser(guild.client, data.offenderId);
+
+    if (!moderator || !offender) return null;
+
+    return new Modlog(guild, moderator, offender, data);
+  }
+}
