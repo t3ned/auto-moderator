@@ -55,3 +55,9 @@ export class Client extends AkairoClient {
     void 0;
   }
 }
+
+declare module "discord.js" {
+  export interface Client {
+    readonly mod: ModerationManager;
+  }
+}
