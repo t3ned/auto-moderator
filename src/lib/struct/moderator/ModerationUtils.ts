@@ -1,5 +1,5 @@
 import type { User, Message, MessageOptions } from "discord.js";
-import { ModerationBase } from "#lib";
+import { ModerationBase, ModlogReason, ModlogReasons } from "#lib";
 
 export class ModerationUtils extends ModerationBase {
   /**
@@ -28,5 +28,15 @@ export class ModerationUtils extends ModerationBase {
     } catch {
       return null;
     }
+  }
+
+  /**
+   * Gets the modlog reason string from the reason integer
+   * @param reason The modlog reason integer
+   */
+  public getReasonString(reason: ModlogReason): string {
+    const reasonString = ModlogReasons.get(reason);
+    if (reasonString) return reasonString;
+    throw new Error("Missing modlog reason");
   }
 }
