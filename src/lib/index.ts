@@ -17,7 +17,7 @@ export * from "./struct/moderator/ModerationBase";
 export * from "./struct/moderator/ModerationLog";
 export * from "./struct/moderator/ModerationActions";
 export * from "./struct/moderator/ModerationUtils";
-export * from "./struct/moderator/ModerationTypes";
+export * from "./struct/moderator/ModerationShared";
 export * from "./struct/monitor/Monitor";
 export * from "./struct/monitor/MonitorHandler";
 export * from "./struct/SequentialQueue";
