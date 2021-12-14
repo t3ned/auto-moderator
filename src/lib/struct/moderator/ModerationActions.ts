@@ -1,18 +1,6 @@
-import type { ModerationManager } from "#lib";
+import { ModerationBase } from "#lib";
 
-export class ModerationActions {
-  /**
-   * The manager instance
-   */
-  public manager!: ModerationManager;
-
-  /**
-   * @param manager The manager instance
-   */
-  public constructor(manager: ModerationManager) {
-    Reflect.defineProperty(this, "manager", { value: manager });
-  }
-
+export class ModerationActions extends ModerationBase {
   // public warn() {}
   // public kick() {}
   // public mute() {}

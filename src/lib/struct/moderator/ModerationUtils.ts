@@ -1,19 +1,7 @@
-import type { Client, User, Message, MessageOptions } from "discord.js";
-import type { ModerationManager } from "#lib";
+import type { User, Message, MessageOptions } from "discord.js";
+import { ModerationBase } from "#lib";
 
-export class ModerationUtils {
-  /**
-   * The manager instance
-   */
-  public manager!: ModerationManager;
-
-  /**
-   * @param manager The manager instance
-   */
-  public constructor(manager: ModerationManager) {
-    Reflect.defineProperty(this, "manager", { value: manager });
-  }
-
+export class ModerationUtils extends ModerationBase {
   /**
    * Fetches a user
    * @param userId The id of the user
@@ -40,12 +28,5 @@ export class ModerationUtils {
     } catch {
       return null;
     }
-  }
-
-  /**
-   * The client instance
-   */
-  public get client(): Client {
-    return this.manager.client;
   }
 }
