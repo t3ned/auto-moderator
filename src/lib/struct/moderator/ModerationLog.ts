@@ -8,12 +8,12 @@ import {
   consts
 } from "#lib";
 
-import type { Modlog as PrismaModlog } from "@prisma/client";
-import type { ModlogUser, ModlogData } from "./types";
+import type { ModlogUser, ModlogData } from "./ModerationTypes";
 import type { Guild, TextChannel } from "discord.js";
+import type { Modlog } from "@prisma/client";
 import { parseMS } from "human-ms";
 
-export class Modlog {
+export class ModerationLog {
   /**
    * @param guild The guild
    * @param moderator The modlog moderator
@@ -73,12 +73,12 @@ export class Modlog {
     return modlog;
   }
 
-  public static async from(guild: Guild, data: PrismaModlog): Promise<Modlog | null> {
+  public static async from(guild: Guild, data: Modlog): Promise<ModerationLog | null> {
     const moderator = await fetchUser(guild.client, data.moderatorId);
     const offender = await fetchUser(guild.client, data.offenderId);
 
     if (!moderator || !offender) return null;
 
-    return new Modlog(guild, moderator, offender, data);
+    return new ModerationLog(guild, moderator, offender, data);
   }
 }
