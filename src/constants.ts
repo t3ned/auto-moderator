@@ -7,8 +7,6 @@ export enum Colors {
   Danger = 0xf45b69
 }
 
-export const modlogReasons: string[] = [];
-
 export const clientOptions: ClientOptions = {
   restTimeOffset: 0,
   makeCache: Options.cacheWithLimits({
