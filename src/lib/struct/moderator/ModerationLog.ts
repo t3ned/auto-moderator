@@ -1,5 +1,8 @@
 import {
   Embed,
+  ModlogUser,
+  ModlogData,
+  ModlogWithTask,
   fetchUser,
   formatUser,
   formatEmbedFieldDescription,
@@ -8,9 +11,7 @@ import {
   consts
 } from "#lib";
 
-import type { ModlogUser, ModlogData } from "./ModerationTypes";
 import type { Guild, TextChannel } from "discord.js";
-import type { Modlog } from "@prisma/client";
 import { parseMS } from "human-ms";
 
 export class ModerationLog {
@@ -29,6 +30,27 @@ export class ModerationLog {
     public duration?: number
   ) {}
 
+  /**
+   * Creates a new modlog from a modlog database entry
+   * @param guild The guild
+   * @param data The modlog data
+   */
+  public static async from(
+    guild: Guild,
+    data: ModlogWithTask
+  ): Promise<ModerationLog | null> {
+    const moderator = await fetchUser(guild.client, data.moderatorId);
+    const offender = await fetchUser(guild.client, data.offenderId);
+
+    if (!moderator || !offender) return null;
+
+    return new ModerationLog(guild, moderator, offender, data, data.task?.duration);
+  }
+
+  /**
+   * Gets the MessageEmbed representation of the modlog
+   * @param caseId The case id of the modlog
+   */
   public toEmbed(caseId: number): Embed {
     const content = formatEmbedFieldDescription([
       ["Moderator", formatUser(this.moderator)],
@@ -42,7 +64,10 @@ export class ModerationLog {
     return dangerEmbed(content).setAuthor(title);
   }
 
-  public async done() {
+  /**
+   * Generates the modlog case id, sends the modlog message and creates the database entry
+   */
+  public async new() {
     const guild = await databaseProvider.helpers.incrementGuildModlogCaseId(
       this.guild.id
     );
@@ -71,14 +96,5 @@ export class ModerationLog {
     });
 
     return modlog;
-  }
-
-  public static async from(guild: Guild, data: Modlog): Promise<ModerationLog | null> {
-    const moderator = await fetchUser(guild.client, data.moderatorId);
-    const offender = await fetchUser(guild.client, data.offenderId);
-
-    if (!moderator || !offender) return null;
-
-    return new ModerationLog(guild, moderator, offender, data);
   }
 }
