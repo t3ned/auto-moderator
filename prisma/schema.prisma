@@ -24,7 +24,7 @@ model Guild {
 }
 
 model Modlog {
-  id String @id @default(cuid()) @db.Char(32)
+  id String @id @default(cuid()) @db.Char(25)
 
   caseId   Int            @map("case_id") @db.Integer
   caseType ModlogCaseType @map("case_type")
