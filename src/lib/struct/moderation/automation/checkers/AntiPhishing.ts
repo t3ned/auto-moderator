@@ -2,6 +2,7 @@ import {
   AutoModChecker,
   AutoModCheckerType,
   AutoModCheckerPriority,
+  ModlogReason,
   consts,
   config,
   logger
@@ -9,7 +10,6 @@ import {
 
 import type { Guild, Message, User } from "discord.js";
 import axios from "axios";
-import { ModlogReason } from "../../ModerationShared";
 
 export class AntiPhishing extends AutoModChecker {
   /**
@@ -35,13 +35,9 @@ export class AntiPhishing extends AutoModChecker {
     const reason =
       match.type === "PHISHING" ? ModlogReason.PHISHING : ModlogReason.IP_LOGGER;
 
-    await this.mod.actions.ban(
-      message.guild as Guild,
-      message.author,
-      this.client.user as User,
-      reason,
-      1
-    );
+    await this.mod.actions
+      .ban(message.guild as Guild, message.author, this.client.user as User, reason, 1)
+      .catch(() => null);
 
     return true;
   }
