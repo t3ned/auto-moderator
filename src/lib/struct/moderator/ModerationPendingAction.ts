@@ -1,4 +1,4 @@
-import { ModerationBase, ModerationManager } from "#lib";
+import { ModerationBase, ModerationManager, ModlogWithTask } from "#lib";
 import type { ModerationTask } from "@prisma/client";
 
 export class ModerationPendingAction extends ModerationBase {
@@ -26,8 +26,8 @@ export class ModerationPendingAction extends ModerationBase {
   /**
    * Executes the pending moderation action
    */
-  public run() {
-    // noop
+  public run(): Promise<ModlogWithTask | null> {
+    return this.manager.actions.reverse(this.modlogId).catch(() => null);
   }
 
   /**
