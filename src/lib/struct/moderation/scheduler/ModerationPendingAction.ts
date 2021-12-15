@@ -29,7 +29,7 @@ export class ModerationPendingAction extends ModerationBase {
    */
   public async run(): Promise<ModlogWithPendingAction | null> {
     const result = await this.manager.actions
-      .reverse(this.modlogId, ModlogReason.EXPIRED)
+      .undo(this.modlogId, ModlogReason.EXPIRED)
       .catch(() => null);
 
     await this.cancel();

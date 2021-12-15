@@ -127,9 +127,9 @@ export class ModerationActions extends ModerationBase {
   /**
    * Performs the reverse action on a modlog
    * @param modlogId The id of the modlog
-   * @param reason The reason the action was reversed
+   * @param reason The reason the action was undone
    */
-  public async reverse(
+  public async undo(
     modlogId: string,
     reason: ModlogReason
   ): Promise<ModlogWithPendingAction> {

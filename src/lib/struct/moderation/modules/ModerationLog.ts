@@ -8,7 +8,7 @@ import {
   fetchUser,
   formatUser,
   formatEmbedFieldDescription,
-  reversedModlogActionMap,
+  undoModlogActionMap,
   databaseProvider,
   dangerEmbed,
   Client
@@ -120,14 +120,14 @@ export class ModerationLog extends ModerationBase {
    * Gets the message components to use in the modlog message
    */
   public get messageComponents(): MessageActionRow | null {
-    const reverseAction = reversedModlogActionMap[this.data.caseType];
-    if (!reverseAction) return null;
+    const undoAction = undoModlogActionMap[this.data.caseType];
+    if (!undoAction) return null;
 
     return new MessageActionRow().addComponents(
       new MessageButton()
-        .setCustomId("reverse-action")
+        .setCustomId("undo-action")
         .setStyle("SUCCESS")
-        .setLabel(`↻ ${reverseAction.toLowerCase().capitalize()}`)
+        .setLabel(`↻ ${undoAction.toLowerCase().capitalize()}`)
     );
   }
 }
