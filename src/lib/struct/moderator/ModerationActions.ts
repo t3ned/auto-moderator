@@ -76,7 +76,7 @@ export class ModerationActions extends ModerationBase {
     duration?: number
   ): Promise<ModlogWithPendingAction> {
     const member = await this.manager.utils.fetchMember(guild, user.id);
-    if (!member?.bannable) throw new Error("Member is not bannable");
+    if (member && !member.bannable) throw new Error("Member is not bannable");
 
     await this.manager.utils.tryDm(user.id, {
       embeds: [
