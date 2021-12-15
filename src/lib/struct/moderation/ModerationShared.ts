@@ -16,8 +16,8 @@ export enum ModlogReason {
 export const ModlogReasons: Record<ModlogReason, string> = {
   [ModlogReason.REVERSE]: "Action was reversed via button.",
   [ModlogReason.EXPIRED]: "Action was reversed due to expiry.",
-  [ModlogReason.IP_LOGGER]: "Posted a message containing an IP grabber URL.",
-  [ModlogReason.PHISHING]: "Posted a message containing a phishing URL."
+  [ModlogReason.IP_LOGGER]: "Posted a message containing a suspected IP grabber URL.",
+  [ModlogReason.PHISHING]: "Posted a message containing a suspected phishing URL."
 };
 
 export const reversedModlogActionMap: Record<ModlogCaseType, ModlogCaseType | null> = {
