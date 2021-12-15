@@ -14,8 +14,8 @@ export * from "./providers/RedisProvider";
 // Struct
 export * from "./struct/moderation/ModerationManager";
 export * from "./struct/moderation/ModerationBase";
-export * from "./struct/moderation/automation/AutoModManager";
 export * from "./struct/moderation/automation/AutoModChecker";
+export * from "./struct/moderation/automation/AutoModManager";
 export * from "./struct/moderation/modules/ModerationLog";
 export * from "./struct/moderation/modules/ModerationActions";
 export * from "./struct/moderation/modules/ModerationHistory";

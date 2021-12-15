@@ -1,4 +1,5 @@
 import {
+  AutoModManager,
   ModerationActions,
   ModerationScheduler,
   ModerationHistory,
@@ -11,6 +12,11 @@ export class ModerationManager {
    * The client instance
    */
   public client!: Client;
+
+  /**
+   * The automod manager
+   */
+  public automod = new AutoModManager(this);
 
   /**
    * The moderation actions
