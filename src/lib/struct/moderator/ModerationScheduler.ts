@@ -1,4 +1,11 @@
-import { ModerationBase, ModerationPendingAction, databaseProvider, consts } from "#lib";
+import {
+  ModerationBase,
+  ModerationPendingAction,
+  databaseProvider,
+  consts,
+  logger
+} from "#lib";
+
 import type { ModerationTask } from "@prisma/client";
 
 export class ModerationScheduler extends ModerationBase {
@@ -93,6 +100,7 @@ export class ModerationScheduler extends ModerationBase {
   private async _run(): Promise<void> {
     const now = Date.now();
     const readyTasks = this.tasks.filter((task) => task.expiresAt < now);
+    logger.info(`[Scheduler] Resolved ${readyTasks.length} tasks`);
     await Promise.all(readyTasks.map((task) => task.run()));
     return this._ensureInterval();
   }
@@ -102,11 +110,13 @@ export class ModerationScheduler extends ModerationBase {
    */
   private _ensureInterval(): void {
     if (this.#interval && !this.tasks.length) {
+      logger.info("[Scheduler] Stopped interval");
       clearInterval(this.#interval);
       this.#interval = null;
     }
 
     if (!this.#interval && this.tasks.length) {
+      logger.info("[Scheduler] Started interval");
       this.#interval = setInterval(
         this._run.bind(this),
         consts.moderationSchedulerPrecision
