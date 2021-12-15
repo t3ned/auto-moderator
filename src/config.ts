@@ -4,7 +4,9 @@ export const requiredEnvVariables = [
   "URI_DISCORD",
   "URI_POSTGRESQL",
   "URI_REDIS",
-  "PREFIX"
+  "PREFIX",
+  "PHISHING_API_URL",
+  "USER_AGENT"
 ];
 
 // Ensure required env variables have loaded
@@ -23,6 +25,8 @@ declare global {
       URI_POSTGRESQL: string;
       URI_REDIS: string;
       PREFIX: string;
+      PHISHING_API_URL: string;
+      USER_AGENT: string;
     }
   }
 }
@@ -37,3 +41,6 @@ export const uri = {
 };
 
 export const prefix = process.env.PREFIX;
+
+export const phishingApiUrl = process.env.PHISHING_API_URL;
+export const userAgent = process.env.USER_AGENT;
