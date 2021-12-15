@@ -1,5 +1,5 @@
 import { Prisma, Guild, Modlog, ModlogCaseType, ModerationTask } from "@prisma/client";
-import type { ModerationPendingAction } from "./ModerationPendingAction";
+import type { ModerationPendingAction } from "./scheduler/ModerationPendingAction";
 
 export interface ModlogUser {
   id: string;

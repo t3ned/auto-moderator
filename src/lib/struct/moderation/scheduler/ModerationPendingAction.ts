@@ -1,6 +1,6 @@
 import { ModerationBase, ModerationManager, ModlogWithPendingAction } from "#lib";
 import type { ModerationTask } from "@prisma/client";
-import { ModlogReason } from "./ModerationShared";
+import { ModlogReason } from "../ModerationShared";
 
 export class ModerationPendingAction extends ModerationBase {
   /**
