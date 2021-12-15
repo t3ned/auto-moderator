@@ -9,13 +9,15 @@ export interface ModlogUser {
 export enum ModlogReason {
   REVERSE,
   EXPIRED,
-  SPAM
+  IP_LOGGER,
+  PHISHING
 }
 
 export const ModlogReasons: Record<ModlogReason, string> = {
   [ModlogReason.REVERSE]: "Action was reversed via button.",
   [ModlogReason.EXPIRED]: "Action was reversed due to expiry.",
-  [ModlogReason.SPAM]: "Spam is not allowed anywhere in this server."
+  [ModlogReason.IP_LOGGER]: "Posted a message containing an IP grabber URL.",
+  [ModlogReason.PHISHING]: "Posted a message containing a phishing URL."
 };
 
 export const reversedModlogActionMap: Record<ModlogCaseType, ModlogCaseType | null> = {

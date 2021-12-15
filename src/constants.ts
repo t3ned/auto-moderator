@@ -23,3 +23,6 @@ export const clientOptions: ClientOptions = {
 };
 
 export const moderationSchedulerPrecision = 1000 * 5;
+
+export const domainRegex =
+  /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
