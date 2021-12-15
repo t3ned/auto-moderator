@@ -7,11 +7,13 @@ export interface ModlogUser {
 
 export enum ModlogReason {
   REVERSE,
+  EXPIRED,
   SPAM
 }
 
 export const ModlogReasons: Record<ModlogReason, string> = {
   [ModlogReason.REVERSE]: "Action was reversed via button.",
+  [ModlogReason.EXPIRED]: "Action was reversed due to expiry.",
   [ModlogReason.SPAM]: "Spam is not allowed anywhere in this server."
 };
 
