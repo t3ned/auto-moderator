@@ -1,5 +1,5 @@
 import type { DatabaseProvider, GuildWithModlogs, ModlogWithTask } from "#lib";
-import type { Guild, ModerationTask, Prisma } from "@prisma/client";
+import type { Guild, Prisma } from "@prisma/client";
 
 export class DatabaseHelpers {
   /**
@@ -105,25 +105,6 @@ export class DatabaseHelpers {
   }
 
   /**
-   * Finds a modlog by id
-   * @param guildId The id of the guild
-   * @param caseId The id of the modlog case
-   */
-  public findModlog(guildId: string, caseId: number): Promise<ModlogWithTask | null> {
-    return this.client.modlog.findUnique({
-      include: {
-        task: true
-      },
-      where: {
-        modlogId: {
-          guildId,
-          caseId
-        }
-      }
-    });
-  }
-
-  /**
    * Finds a modlog by message id
    * @param messageId The id of the message
    */
@@ -134,58 +115,6 @@ export class DatabaseHelpers {
       },
       where: {
         messageId
-      }
-    });
-  }
-
-  /**
-   * Finds all the modlogs for an offender
-   * @param guildId The id of the guild
-   * @param offenderId The id of the offender
-   */
-  public findModlogsByOffender(
-    guildId: string,
-    offenderId: string
-  ): Promise<ModlogWithTask[]> {
-    return this.client.modlog.findMany({
-      include: {
-        task: true
-      },
-      where: {
-        guildId,
-        offenderId
-      }
-    });
-  }
-
-  /**
-   * Finds all the modlogs for a moderator
-   * @param guildId The id of the guild
-   * @param moderatorId The id of the moderator
-   */
-  public findModlogsByModerator(
-    guildId: string,
-    moderatorId: string
-  ): Promise<ModlogWithTask[]> {
-    return this.client.modlog.findMany({
-      include: {
-        task: true
-      },
-      where: {
-        guildId,
-        moderatorId
-      }
-    });
-  }
-
-  /**
-   * Deletes a moderation task
-   * @param modlogId The id of the modlog
-   */
-  public deleteModerationTask(modlogId: string): Promise<ModerationTask> {
-    return this.client.moderationTask.delete({
-      where: {
-        modlogId
       }
     });
   }
