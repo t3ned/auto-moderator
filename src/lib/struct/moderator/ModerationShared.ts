@@ -1,4 +1,5 @@
 import { Prisma, Guild, Modlog, ModlogCaseType, ModerationTask } from "@prisma/client";
+import type { ModerationPendingAction } from "./ModerationPendingAction";
 
 export interface ModlogUser {
   id: string;
@@ -32,3 +33,4 @@ export type ModlogCreateInputWithoutGuild = Omit<Prisma.ModlogCreateInput, "guil
 
 export type GuildWithModlogs = Guild & { modlogs: Modlog[] };
 export type ModlogWithTask = Modlog & { task: ModerationTask | null };
+export type ModlogWithPendingAction = Modlog & { task: ModerationPendingAction | null };

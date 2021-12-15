@@ -1,4 +1,10 @@
-import { ModlogWithTask, listener, databaseProvider, ModlogReason } from "#lib";
+import {
+  ModlogWithTask,
+  ModlogWithPendingAction,
+  listener,
+  databaseProvider,
+  ModlogReason
+} from "#lib";
 import { ModlogCaseType } from "@prisma/client";
 import type { Interaction, Guild, User } from "discord.js";
 import { Listener } from "discord-akairo";
@@ -33,7 +39,7 @@ export default class extends Listener {
     modlog: ModlogWithTask,
     guild: Guild,
     moderator: User
-  ): Promise<ModlogWithTask> {
+  ): Promise<ModlogWithPendingAction> {
     return this.client.mod.actions.unban(
       guild,
       modlog.offenderId,

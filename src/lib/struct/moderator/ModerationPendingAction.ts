@@ -1,4 +1,4 @@
-import { ModerationBase, ModerationManager, ModlogWithTask } from "#lib";
+import { ModerationBase, ModerationManager, ModlogWithPendingAction } from "#lib";
 import type { ModerationTask } from "@prisma/client";
 import { ModlogReason } from "./ModerationShared";
 
@@ -27,10 +27,14 @@ export class ModerationPendingAction extends ModerationBase {
   /**
    * Executes the pending moderation action
    */
-  public run(): Promise<ModlogWithTask | null> {
-    return this.manager.actions
+  public async run(): Promise<ModlogWithPendingAction | null> {
+    const result = await this.manager.actions
       .reverse(this.modlogId, ModlogReason.EXPIRED)
       .catch(() => null);
+
+    await this.cancel();
+
+    return result;
   }
 
   /**

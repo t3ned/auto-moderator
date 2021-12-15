@@ -3,6 +3,7 @@ import {
   ModlogUser,
   ModlogData,
   ModlogWithTask,
+  ModlogWithPendingAction,
   ModerationBase,
   fetchUser,
   formatUser,
@@ -71,7 +72,7 @@ export class ModerationLog extends ModerationBase {
   /**
    * Generates the modlog case id, sends the modlog message and creates the database entry
    */
-  public async new() {
+  public async new(): Promise<ModlogWithPendingAction> {
     const guild = await databaseProvider.helpers.incrementGuildModlogCaseId(
       this.guild.id
     );
@@ -93,19 +94,26 @@ export class ModerationLog extends ModerationBase {
       }
     }
 
-    const modlog = await databaseProvider.helpers.createModlog(
-      this.guild.id,
-      {
+    const modlog = await databaseProvider.client.modlog.create({
+      data: {
         ...this.data,
         moderatorId: this.moderator.id,
         offenderId: this.offender.id,
         messageId,
-        caseId
-      },
-      this.duration
-    );
+        caseId,
+        guild: {
+          connect: {
+            id: this.guild.id
+          }
+        }
+      }
+    });
 
-    return modlog;
+    const task = this.duration
+      ? await this.manager.scheduler.create(modlog.id, this.duration)
+      : null;
+
+    return { ...modlog, task };
   }
 
   /**

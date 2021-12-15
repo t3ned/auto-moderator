@@ -18,6 +18,7 @@ export class ModerationScheduler extends ModerationBase {
   public async init(): Promise<this> {
     const tasks = await databaseProvider.client.moderationTask.findMany();
     for (const task of tasks) this._add(task);
+    await this._run();
     return this;
   }
 
@@ -49,7 +50,7 @@ export class ModerationScheduler extends ModerationBase {
    * Deletes a pending moderation action
    * @param modlogId The id of the modlog
    */
-  public async delete(modlogId: string): Promise<ModerationPendingAction> {
+  public async delete(modlogId: string): Promise<ModerationPendingAction | null> {
     const modlog = await this.manager.history.find(modlogId);
     if (!modlog) throw new Error("Modlog not found.");
 
@@ -78,9 +79,9 @@ export class ModerationScheduler extends ModerationBase {
    * Removes a pending moderation action from the cache
    * @param modlogId The id of the modlog
    */
-  private _remove(modlogId: string): ModerationPendingAction {
+  private _remove(modlogId: string): ModerationPendingAction | null {
     const taskIndex = this.tasks.findIndex((task) => task.modlogId === modlogId);
-    if (taskIndex === -1) throw new Error("Task not found.");
+    if (taskIndex === -1) return null;
     const [task] = this.tasks.splice(taskIndex, 1);
     this._ensureInterval();
     return task;

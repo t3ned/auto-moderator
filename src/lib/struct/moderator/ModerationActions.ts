@@ -1,7 +1,7 @@
 import {
   ModerationBase,
   ModerationLog,
-  ModlogWithTask,
+  ModlogWithPendingAction,
   ModlogReason,
   dangerEmbed
 } from "#lib";
@@ -21,7 +21,7 @@ export class ModerationActions extends ModerationBase {
     member: GuildMember,
     moderator: User,
     reason: ModlogReason
-  ): Promise<ModlogWithTask> {
+  ): Promise<ModlogWithPendingAction> {
     await this.manager.utils.tryDm(member.id, {
       embeds: [
         dangerEmbed(this.manager.utils.getReasonString(reason)).setAuthor("Warning")
@@ -44,7 +44,7 @@ export class ModerationActions extends ModerationBase {
     member: GuildMember,
     moderator: User,
     reason: ModlogReason
-  ): Promise<ModlogWithTask> {
+  ): Promise<ModlogWithPendingAction> {
     if (!member.kickable) throw new Error("Member is not kickable");
 
     await member.kick();
@@ -74,7 +74,7 @@ export class ModerationActions extends ModerationBase {
     reason: ModlogReason,
     days: number,
     duration?: number
-  ): Promise<ModlogWithTask> {
+  ): Promise<ModlogWithPendingAction> {
     const member = await this.manager.utils.fetchMember(guild, user.id);
     if (!member?.bannable) throw new Error("Member is not bannable");
 
@@ -112,7 +112,7 @@ export class ModerationActions extends ModerationBase {
     userId: string,
     moderator: User,
     reason: ModlogReason
-  ): Promise<ModlogWithTask> {
+  ): Promise<ModlogWithPendingAction> {
     const ban = await this.manager.utils.fetchBan(guild, userId);
     if (!ban) throw "User is not banned";
 
@@ -129,7 +129,10 @@ export class ModerationActions extends ModerationBase {
    * @param modlogId The id of the modlog
    * @param reason The reason the action was reversed
    */
-  public async reverse(modlogId: string, reason: ModlogReason): Promise<ModlogWithTask> {
+  public async reverse(
+    modlogId: string,
+    reason: ModlogReason
+  ): Promise<ModlogWithPendingAction> {
     const modlog = await this.manager.history.find(modlogId);
     if (!modlog) throw new Error("Modlog not found.");
 
