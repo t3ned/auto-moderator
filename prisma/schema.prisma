@@ -57,7 +57,7 @@ enum ModlogCaseType {
 }
 
 model ModerationTask {
-  modlogId String @id @map("modlog_id") @db.Char(32)
+  modlogId String @id @map("modlog_id") @db.Char(25)
 
   duration  Int      @db.Integer
   expiresAt DateTime @map("expires_at") @db.Timestamp
