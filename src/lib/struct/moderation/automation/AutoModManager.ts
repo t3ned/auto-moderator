@@ -45,9 +45,6 @@ export class AutoModManager {
    * @param message The message to check
    */
   public async runMessageCheckers(message: Message): Promise<void> {
-    if (message.partial) await message.fetch();
-    if (!message.guild || message.author.bot) return;
-
     for (const checker of this.messageCheckers) {
       const abortRest = await checker.run(message);
       if (abortRest) break;

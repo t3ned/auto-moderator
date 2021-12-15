@@ -9,6 +9,7 @@ export enum Colors {
 
 export const clientOptions: ClientOptions = {
   restTimeOffset: 0,
+  partials: ["MESSAGE"],
   makeCache: Options.cacheWithLimits({
     MessageManager: 100,
     ThreadManager: 100,

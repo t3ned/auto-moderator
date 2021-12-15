@@ -8,6 +8,11 @@ export class Monitor extends AkairoModule {
   public ignore: MessageType[];
 
   /**
+   * Whether to run this monitor on an edited message
+   */
+  public runOnEdit: boolean;
+
+  /**
    * @param id The monitor id
    * @param options The monitor options
    */
@@ -15,6 +20,7 @@ export class Monitor extends AkairoModule {
     super(id, options);
 
     this.ignore = options.ignore ?? [];
+    this.runOnEdit = options.runOnEdit ?? true;
   }
 
   /**
@@ -28,4 +34,5 @@ export class Monitor extends AkairoModule {
 
 export interface MonitorOptions extends AkairoModuleOptions {
   ignore?: MessageType[];
+  runOnEdit?: boolean;
 }

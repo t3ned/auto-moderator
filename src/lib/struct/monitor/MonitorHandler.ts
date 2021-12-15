@@ -1,7 +1,6 @@
 import { AkairoHandler, AkairoHandlerOptions } from "discord-akairo";
+import type { Collection, Message } from "discord.js";
 import { Client, Monitor, logger } from "#lib";
-
-import type { Collection } from "discord.js";
 
 export class MonitorHandler extends AkairoHandler {
   /**
@@ -19,22 +18,31 @@ export class MonitorHandler extends AkairoHandler {
       ...options
     });
 
-    this.client.on("messageCreate", async (message) => {
-      for (const [id, monitor] of this.modules) {
-        void id;
+    this.client.on("messageCreate", this._runMessage.bind(this));
+    this.client.on("messageUpdate", async (_, message) =>
+      this._runMessage(message as Message)
+    );
+  }
 
-        if (monitor.ignore.includes(message.type)) continue;
+  /**
+   * Runs all the monitors on the message
+   * @param message The message to monitor
+   */
+  private async _runMessage(message: Message) {
+    if (message.partial) await message.fetch();
 
-        try {
-          await monitor.exec(message);
-        } catch (error) {
-          if (error instanceof Error || typeof error === "string") {
-            logger.error(error);
-          }
+    for (const monitor of this.modules.values()) {
+      if (monitor.ignore.includes(message.type)) continue;
 
-          // noop
+      try {
+        await monitor.exec(message);
+      } catch (error) {
+        if (error instanceof Error || typeof error === "string") {
+          logger.error(error);
         }
+
+        // noop
       }
-    });
+    }
   }
 }
