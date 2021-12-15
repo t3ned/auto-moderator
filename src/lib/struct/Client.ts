@@ -51,6 +51,11 @@ export class Client extends AkairoClient {
     this.monitorHandler.loadAll();
   }
 
+  public async login(token: string): Promise<string> {
+    await this.mod.init();
+    return super.login(token);
+  }
+
   public setInterval(): void {
     void 0;
   }

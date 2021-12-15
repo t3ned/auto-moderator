@@ -38,4 +38,11 @@ export class ModerationManager {
   public constructor(client: Client) {
     Reflect.defineProperty(this, "client", { value: client });
   }
+
+  /**
+   * Initialises all the helpers
+   */
+  public async init(): Promise<void> {
+    await this.scheduler.init();
+  }
 }
