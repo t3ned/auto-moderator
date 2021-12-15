@@ -1,10 +1,4 @@
-import type {
-  DatabaseProvider,
-  GuildWithModlogs,
-  ModlogWithTask,
-  ModlogCreateInputWithoutGuild
-} from "#lib";
-
+import type { DatabaseProvider, GuildWithModlogs, ModlogWithTask } from "#lib";
 import type { Guild, ModerationTask, Prisma } from "@prisma/client";
 
 export class DatabaseHelpers {
@@ -180,61 +174,6 @@ export class DatabaseHelpers {
       where: {
         guildId,
         moderatorId
-      }
-    });
-  }
-
-  /**
-   * Creates a modlog
-   * @param guildId The id of the guild
-   * @param data The modlog create data
-   * @param duration The modlog create data
-   */
-  public async createModlog(
-    guildId: string,
-    data: ModlogCreateInputWithoutGuild,
-    duration?: number
-  ): Promise<ModlogWithTask> {
-    const modlog = await this.client.modlog.create({
-      include: {
-        task: true
-      },
-      data: {
-        ...data,
-        guild: {
-          connect: {
-            id: guildId
-          }
-        }
-      }
-    });
-
-    if (duration) {
-      const task = await this.createModerationTask(modlog.id, duration);
-      modlog.task = task;
-    }
-
-    return modlog;
-  }
-
-  /**
-   * Creates a moderation task
-   * @param modlogId The id of the modlog
-   * @param duration The duration of the task
-   */
-  public createModerationTask(
-    modlogId: string,
-    duration: number
-  ): Promise<ModerationTask> {
-    return this.client.moderationTask.create({
-      data: {
-        duration,
-        expiresAt: new Date(Date.now() + duration),
-        modlog: {
-          connect: {
-            id: modlogId
-          }
-        }
       }
     });
   }
