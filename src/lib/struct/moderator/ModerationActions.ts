@@ -123,4 +123,26 @@ export class ModerationActions extends ModerationBase {
       reason: reason
     }).new();
   }
+
+  /**
+   * Performs the reverse action on a modlog
+   * @param modlogId The id of the modlog
+   */
+  public async reverse(modlogId: string): Promise<ModlogWithTask> {
+    const modlog = await this.manager.history.find(modlogId);
+    if (!modlog) throw new Error("Modlog not found.");
+
+    const guild = this.client.guilds.cache.get(modlog.guildId);
+    if (!guild) throw new Error("Guild not found.");
+
+    const moderator = await this.manager.utils.fetchUser(modlog.moderatorId);
+    if (!moderator) throw new Error("Moderator not found.");
+
+    switch (modlog.caseType) {
+      case ModlogCaseType.BAN:
+        return this.unban(guild, modlog.offenderId, moderator, ModlogReason.REVERSE);
+    }
+
+    throw new Error("Modlog is not reversible");
+  }
 }
