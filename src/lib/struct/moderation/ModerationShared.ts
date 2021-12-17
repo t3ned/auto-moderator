@@ -11,15 +11,17 @@ export enum ModlogReason {
   EXPIRED,
   IP_LOGGER,
   PHISHING,
-  SELFBOT
+  SELFBOT,
+  MASS_JOIN_RAID
 }
 
 export const ModlogReasons: Record<ModlogReason, string> = {
   [ModlogReason.UNDO]: "Action was undone via button.",
   [ModlogReason.EXPIRED]: "Action was undone due to expiry.",
-  [ModlogReason.IP_LOGGER]: "Posted a message containing a suspected IP grabber URL.",
+  [ModlogReason.IP_LOGGER]: "Posted a message containing a suspected IP logger URL.",
   [ModlogReason.PHISHING]: "Posted a message containing a suspected phishing URL.",
-  [ModlogReason.SELFBOT]: "Using a selfbot."
+  [ModlogReason.SELFBOT]: "Using a selfbot.",
+  [ModlogReason.MASS_JOIN_RAID]: "Suspected raider involved in mass joining."
 };
 
 export const undoModlogActionMap: Record<ModlogCaseType, ModlogCaseType | null> = {

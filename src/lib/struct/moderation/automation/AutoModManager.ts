@@ -1,5 +1,5 @@
 import { ModerationManager, AutoModChecker, AutoModCheckerType } from "#lib";
-import type { Message } from "discord.js";
+import type { GuildMember, Message } from "discord.js";
 import * as checkers from "./checkers";
 
 export class AutoModManager {
@@ -19,6 +19,11 @@ export class AutoModManager {
   public messageCheckers: AutoModChecker[];
 
   /**
+   * The automod member join checkers
+   */
+  public memberJoinCheckers: AutoModChecker[];
+
+  /**
    * @param manager The manager instance
    */
   public constructor(manager: ModerationManager) {
@@ -30,6 +35,10 @@ export class AutoModManager {
 
     this.messageCheckers = this.checkers.filter(
       (checker) => checker.type === AutoModCheckerType.Message
+    );
+
+    this.memberJoinCheckers = this.checkers.filter(
+      (checker) => checker.type === AutoModCheckerType.GuildMemberAdd
     );
   }
 
@@ -47,6 +56,17 @@ export class AutoModManager {
   public async runMessageCheckers(message: Message): Promise<void> {
     for (const checker of this.messageCheckers) {
       const abortRest = await checker.run(message);
+      if (abortRest) break;
+    }
+  }
+
+  /**
+   * Runs the member checkers
+   * @param member The member to check
+   */
+  public async runMemberJoinCheckers(member: GuildMember): Promise<void> {
+    for (const checker of this.memberJoinCheckers) {
+      const abortRest = await checker.run(member);
       if (abortRest) break;
     }
   }

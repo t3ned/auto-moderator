@@ -44,7 +44,8 @@ export abstract class AutoModChecker {
 }
 
 export enum AutoModCheckerType {
-  Message
+  Message,
+  GuildMemberAdd
 }
 
 export enum AutoModCheckerPriority {
