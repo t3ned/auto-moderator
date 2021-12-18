@@ -34,7 +34,7 @@ export const undoModlogActionMap: Record<ModlogCaseType, ModlogCaseType | null> 
 };
 
 // eslint-disable-next-line prettier/prettier
-export type ModlogData = Omit<Prisma.ModlogCreateInput, "moderatorId" | "offenderId" | "caseId" | "guild"> 
+export type ModlogData = Omit<Prisma.ModlogCreateInput, "moderatorId" | "offenderId" | "caseId" | "guild" | "task"> 
 export type ModlogCreateInputWithoutGuild = Omit<Prisma.ModlogCreateInput, "guild">;
 
 export type GuildWithModlogs = Guild & { modlogs: Modlog[] };
