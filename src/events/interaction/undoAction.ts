@@ -11,12 +11,14 @@ export default class extends Listener {
   public async exec(interaction: Interaction) {
     if (!interaction.isButton()) return;
 
-    const { message, guild, customId } = interaction;
+    const { message, guild, customId, user } = interaction;
     if (customId !== "undo-action" || !guild || interaction.deferred) return;
 
     await interaction.deferReply({ ephemeral: true });
 
-    // TODO: check mod permissions
+    const member = await guild.members.fetch(user.id).catch(() => null);
+    if (!member?.permissions.has("MANAGE_MESSAGES"))
+      return interaction.editReply("You do not have permission to undo actions");
 
     const modlog = await databaseProvider.helpers.findModlogByMessageId(message.id);
     if (!modlog) return interaction.editReply("Modlog not found.");
