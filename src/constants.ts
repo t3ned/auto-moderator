@@ -27,9 +27,9 @@ export const moderationSchedulerPrecision = 1000 * 5;
 export const domainRegex =
   /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/g;
 
-export const minimumAccountAge = 1000 * 60 * 60 * 48; // 48 hours
+// export const minimumAccountAge = 1000 * 60 * 60 * 48; // 48 hours
 
 export const memberMassJoinThreshold = {
-  limit: 15,
-  time: 1000 * 60 * 10 // 10 minutes
+  limit: 20,
+  time: 1000 * 60 * 15 // 10 minutes
 };

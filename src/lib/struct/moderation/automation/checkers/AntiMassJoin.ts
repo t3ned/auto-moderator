@@ -35,10 +35,10 @@ export class AntiMassJoin extends AutoModChecker {
   public async run(member: GuildMember): Promise<boolean> {
     this._resetMembers();
 
-    const isYoungAccount =
-      Date.now() - member.user.createdTimestamp < consts.minimumAccountAge;
+    // const isYoungAccount =
+    //   Date.now() - member.user.createdTimestamp < consts.minimumAccountAge;
 
-    if (!isYoungAccount) return false;
+    // if (!isYoungAccount) return false;
 
     // get or create bucket
     const existingBucket = this.joinBuckets.get(member.guild.id) ?? {
