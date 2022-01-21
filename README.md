@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://imgur.com/xPygSgY.png" align="center" width="15%" alt="">
+<img src="https://imgur.com/3XthaDd.gif" align="center" width="15%" alt="">
 
 # Auto Moderator
 
