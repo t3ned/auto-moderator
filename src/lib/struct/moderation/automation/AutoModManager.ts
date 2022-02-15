@@ -63,7 +63,7 @@ export class AutoModManager {
     if (!message.guildId) return;
 
     const enabledModules = await this.getEnabledAutomodModules(message.guildId);
-    const modules = this.checkers.filter((x) => enabledModules.includes(x.name));
+    const modules = this.messageCheckers.filter((x) => enabledModules.includes(x.name));
 
     for (const checker of modules) {
       const abortRest = await checker.run(message);
@@ -77,7 +77,9 @@ export class AutoModManager {
    */
   public async runMemberJoinCheckers(member: GuildMember): Promise<void> {
     const enabledModules = await this.getEnabledAutomodModules(member.guild.id);
-    const modules = this.checkers.filter((x) => enabledModules.includes(x.name));
+    const modules = this.memberJoinCheckers.filter((x) =>
+      enabledModules.includes(x.name)
+    );
 
     for (const checker of modules) {
       const abortRest = await checker.run(member);
