@@ -5,9 +5,15 @@ import {
   ModlogReason
 } from "#lib";
 
+import { AutomodModule } from "@prisma/client";
 import type { Guild, Message, User } from "discord.js";
 
 export class AntiPhishing extends AutoModChecker {
+  /**
+   * The name of the module
+   */
+  public name = AutomodModule.PHISHING; // TODO
+
   /**
    * The type of this checker
    */

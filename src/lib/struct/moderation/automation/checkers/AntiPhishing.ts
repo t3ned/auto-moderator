@@ -8,10 +8,16 @@ import {
   logger
 } from "#lib";
 
+import { AutomodModule } from "@prisma/client";
 import type { Guild, Message, User } from "discord.js";
 import axios from "axios";
 
 export class AntiPhishing extends AutoModChecker {
+  /**
+   * The name of the module
+   */
+  public name = AutomodModule.PHISHING;
+
   /**
    * The type of this checker
    */

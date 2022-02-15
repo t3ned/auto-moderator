@@ -6,9 +6,15 @@ import {
   consts
 } from "#lib";
 
+import { AutomodModule } from "@prisma/client";
 import { Collection, GuildMember, User } from "discord.js";
 
 export class AntiMassJoin extends AutoModChecker {
+  /**
+   * The name of the module
+   */
+  public name = AutomodModule.MASS_JOIN;
+
   /**
    * The type of this checker
    */

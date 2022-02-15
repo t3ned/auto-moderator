@@ -1,10 +1,16 @@
 import type { AutoModManager, ModerationManager, Client } from "#lib";
+import type { AutomodModule } from "@prisma/client";
 
 export abstract class AutoModChecker {
   /**
    * The automod instance
    */
   public automod!: AutoModManager;
+
+  /**
+   * The name of the automod module
+   */
+  public abstract name: AutomodModule;
 
   /**
    * The type of this checker
