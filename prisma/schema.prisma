@@ -18,9 +18,16 @@ model Guild {
   modlogCaseId    Int     @default(0) @map("modlog_case_id") @db.Integer
   modlogChannelId String? @map("modlog_channel_id") @db.VarChar(20)
 
+  automodEnabledModules AutomodModule[] @map("automod_enabled_modules")
+
   modlogs Modlog[]
 
   @@map("guilds")
+}
+
+enum AutomodModule {
+  PHISHING
+  MASS_JOIN
 }
 
 model Modlog {
