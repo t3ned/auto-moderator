@@ -1,5 +1,5 @@
 import type { DatabaseProvider, GuildWithModlogs, ModlogWithTask } from "#lib";
-import type { Guild, Prisma } from "@prisma/client";
+import type { AutomodModule, Guild, Prisma } from "@prisma/client";
 
 export class DatabaseHelpers {
   /**
@@ -50,6 +50,23 @@ export class DatabaseHelpers {
         id: guildId
       }
     });
+  }
+
+  /**
+   * Get the enabled automod modules
+   * @param guildId The id of the guild
+   */
+  public async getEnabledAutomodModules(guildId: string): Promise<AutomodModule[]> {
+    const guild = await this.client.guild.findUnique({
+      select: {
+        automodEnabledModules: true
+      },
+      where: {
+        id: guildId
+      }
+    });
+
+    return guild?.automodEnabledModules ?? [];
   }
 
   /**
